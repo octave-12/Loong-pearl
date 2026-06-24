@@ -286,6 +286,7 @@ class ReasoningEngine:
         is_causal = confidence > 0.3
         
         return {
+            'valid': is_causal,
             'is_causal': is_causal,
             'confidence': confidence,
             'causal_chain': causal_chain,
@@ -460,9 +461,9 @@ class ReasoningEngine:
             return True, max_confidence
         
         if category in entity or entity in category:
-            return True, 0.8
+            return True, 0.9
         
-        return True, 0.6
+        return True, 0.85
     
     def _conclusions_match(self, derived: str, target: str) -> bool:
         """判断两个结论是否匹配"""

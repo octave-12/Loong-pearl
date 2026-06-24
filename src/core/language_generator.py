@@ -366,6 +366,13 @@ class LanguageGenerator:
             knowledge_chars = set(knowledge_context[:200])
             candidates.update(knowledge_chars)
         
+        if len(context) >= 2:
+            recent_text = ''.join(context[-4:])
+            for idiom in list(self.idiom_set)[:1000]:
+                if idiom.startswith(recent_text) and len(idiom) > len(recent_text):
+                    next_char = idiom[len(recent_text)]
+                    candidates.add(next_char)
+        
         common_chars = self._get_common_chars()
         
         final_candidates = candidates.union(pmi_candidates)
